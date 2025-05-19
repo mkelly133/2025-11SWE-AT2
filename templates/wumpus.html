@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %} 
+<style>
+    td {
+        padding: 0.5rem;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Hunt the Wumpus</h1>
+        <div class="message">{{ message }}</div>
+        <p>
+        <table class="table-bordered">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td class="m-2">9</td>
+            </tr>
+        </table>
+        </p>
+        {% if game.game_on %}
+        <form action="/wumpus" method="post">
+            <label for="move_direction">Enter room number to move:</label>
+            <select id="move_direction", name="move_direction">
+                <option></option>
+                {% for room in game.rooms %}
+                <option value="{{room}}">Room {{room}}</option>
+                {% endfor %}
+            </select>
+        <hr>
+            <label for="shoot_direction">Enter room number to shoot:</label>
+            <select id="shoot_direction", name="shoot_direction">
+                <option></option>
+                {% for room in game.rooms %}
+                <option value="{{room}}">Room {{room}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        {% else %}
+        <a href="/wumpus">New Game</a> 
+        {% endif %}
+    </div>
+</body>
+
+{% endblock %}
